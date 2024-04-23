@@ -17,23 +17,24 @@
 "-"     { return MINUS; }
 "*"     { return TIMES; }
 "/"     { return DIVIDE; }
-"="    { return ASSIGNMENT; }
+"="		{ return ASSIGNMENT; }
 "("     { return LPAREN; }
 ")"     { return RPAREN; }
 "sin"   { return SIN; }
 "cos"   { return COS; }
 "tan"   { return TAN; }
-"for"    { return FOR; }
-";"      { return SEMICOLON; }
-"int"    { return INT; }
-"print"  { return PRINT; }
-"<"      { return LESSTHAN; }
-">"      { return GREATERTHAN; }
-"++"     { return INCREMENT; }
-"--"     { return DECREMENT; }
+"for"   { return FOR; }
+"while" { return WHILE; }
+";"     { return SEMICOLON; }
+"int"   { return INT; }
+"print" { return PRINT; }
+"<"     { return LESSTHAN; }
+">"     { return GREATERTHAN; }
+"++"    { return INCREMENT; }
+"--"    { return DECREMENT; }
 "=="	{ return EQUALS; }
-"{"      { return BLOCK_START; }
-"}"      { return BLOCK_END; }
+"{"     { return BLOCK_START; }
+"}"     { return BLOCK_END; }
 
 
 
@@ -44,4 +45,7 @@
 
 [ \t\n]+ { /* Ignores whitespace and newlines */ }
 .		{ printf("Unknown char: %s\n", yytext); }
+
 %%
+
+

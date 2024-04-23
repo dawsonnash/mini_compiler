@@ -18,7 +18,8 @@ extern int yylex();
 %token PLUS MINUS TIMES DIVIDE ASSIGNMENT
 %token LPAREN RPAREN
 %token SIN COS TAN
-%token FOR SEMICOLON
+%token FOR SEMICOLON 
+%token WHILE
 %token IDENTIFIER LESSTHAN EQUALS GREATERTHAN INCREMENT DECREMENT PRINT
 %token BLOCK_START BLOCK_END
 %token <val> INT
@@ -27,7 +28,7 @@ extern int yylex();
 %token DONE // To indicate end of input 
 %nonassoc UMINUS
 
-%type <double_val> expr statement for_loop
+%type <double_val> expr statement for_loop while_loop
 %type <double_val> trig_expr
 %token <double_val> NUMBER
 
@@ -46,54 +47,53 @@ program:
 
 // for-loop following the structure below:
 // for (initialization; condition; update) {loop body}
-
-// test input: for(int i = 0; i < 10; i++) {print i;}
+// test input: for(int i = 0; i < 10; i++) {print(i);}
 for_loop:
-FOR LPAREN for_init SEMICOLON for_cond SEMICOLON for_update RPAREN statement_block
+FOR LPAREN loop_initialization SEMICOLON loop_condition SEMICOLON loop_update RPAREN statement_block
 {
-    // Placeholder for for-loop logic.
-
+    printf("Successfully parsed a for loop.\n");
+}
+;
+// test input: while(i < 10) {print(i);}
+while_loop:
+WHILE LPAREN loop_condition RPAREN statement_block
+{
+    printf("Successfully parsed a while loop.\n");
 }
 ;
 
-for_init:
+loop_initialization:
 INT IDENTIFIER ASSIGNMENT expr
 {
-    // Handle variable initialization.
-    printf("for_intilialization: int %s = %.0lf;\n", $2, $4);
+    //printf("loop_intilialization: int %s = %.0lf;\n", $2, $4);
 
 }
 ;
 
-for_cond:
+loop_condition:
 expr LESSTHAN expr
 {
-    // Handle condition.
-    printf("lessthan_expr: %.0lf < %.0lf;\n", $1, $3);
+   //printf("lessthan_expr: %.0lf < %.0lf;\n", $1, $3);
 }
 | expr GREATERTHAN expr
 {
-    // Handle condition.
-    printf("greaterthan_expr: %.0lf > %lf;\n", $1, $3);
+   // printf("greaterthan_expr: %.0lf > %lf;\n", $1, $3);
 }
 | expr EQUALS expr
 {
-    // Handle condition.
-    printf("equal_expr: %.0lf == %lf;\n", $1, $3);
+   // printf("equal_expr: %.0lf == %lf;\n", $1, $3);
 }
 ;
 
-for_update:
+loop_update:
 IDENTIFIER INCREMENT
 {
-    // Handle increment.
-    printf("id_increment: %s++;\n", $1);
+    //printf("id_increment: %s++;\n", $1);
 
 }
 | IDENTIFIER DECREMENT
 {
-    // Handle decrement.
-    printf("id_decrement: %s--;\n", $1);
+   // printf("id_decrement: %s--;\n", $1);
 
 }
 ;
@@ -102,16 +102,21 @@ statement_block:
 | BLOCK_START statement BLOCK_END
 // Could add a statements block
 {
-    printf("block_start: {\n");
+    // printf("block_start: {\n");
     // Print or handle statements inside the block.
-    printf("block_end: }\n");
+    // printf("block_end: }\n");
 }
 ;
 
 statement:
 | for_loop
+| while_loop
 | print_statement
-| expr SEMICOLON{ printf("Statement Result: %.2lf\n", $1); }
+| expr SEMICOLON
+;
+
+print_statement:
+PRINT LPAREN expr RPAREN SEMICOLON
 ;
 
 trig_expr:
@@ -139,12 +144,6 @@ expr:
   | IDENTIFIER
   ;
 
-print_statement:
-    PRINT expr SEMICOLON
-    {
-        // Handle printing the value of the expression.
-    }
-    ;
 %%
 
 int parser_main(int argc, char* argv[])
