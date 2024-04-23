@@ -51,19 +51,20 @@
      TAN = 267,
      FOR = 268,
      SEMICOLON = 269,
-     IDENTIFIER = 270,
-     LESSTHAN = 271,
-     EQUALS = 272,
-     GREATERTHAN = 273,
-     INCREMENT = 274,
-     DECREMENT = 275,
-     PRINT = 276,
-     BLOCK_START = 277,
-     BLOCK_END = 278,
-     INT = 279,
-     DONE = 280,
-     UMINUS = 281,
-     NUMBER = 282
+     WHILE = 270,
+     IDENTIFIER = 271,
+     LESSTHAN = 272,
+     EQUALS = 273,
+     GREATERTHAN = 274,
+     INCREMENT = 275,
+     DECREMENT = 276,
+     PRINT = 277,
+     BLOCK_START = 278,
+     BLOCK_END = 279,
+     INT = 280,
+     DONE = 281,
+     UMINUS = 282,
+     NUMBER = 283
    };
 #endif
 
@@ -87,7 +88,7 @@ symval
 
 
 /* Line 1676 of yacc.c  */
-#line 91 "Parser.tab.h"
+#line 92 "Parser.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
